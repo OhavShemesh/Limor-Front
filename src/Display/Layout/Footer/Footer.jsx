@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
+import { Lock } from '@mui/icons-material';
+import ROUTES from '../../../Router/RoutesModel';
 
-export default function Footer() {
+export default function Footer({ navigate }) {
   return (
     <Box sx={{
       backgroundColor: '#C5BAFF',
@@ -23,6 +25,9 @@ export default function Footer() {
           &copy; Limor Dahari. All rights reserved.
         </Typography>
       </Box>
+      <IconButton onClick={() => navigate(ROUTES.ADMIN)}>
+        <Lock />
+      </IconButton>
     </Box>
   );
 }

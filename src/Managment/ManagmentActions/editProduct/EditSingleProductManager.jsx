@@ -13,7 +13,8 @@ export default function EditSingleProductManager() {
     const fetchProduct = useCallback(async () => {
         setIsLoading(true);
         try {
-            const fetchedProduct = await axios.get(`http://localhost:3000/products/${id}`);
+            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const fetchedProduct = await axios.get(`${baseUrl}/products/${id}`);
             setProduct(fetchedProduct.data);
         } catch (err) {
             console.log(err);
@@ -29,7 +30,8 @@ export default function EditSingleProductManager() {
     const { handleChange, requestTemplate } = useForm(editProductInitial)
     const handleSubmit = async () => {
         try {
-            const newProduct = await axios.put(`http://localhost:3000/products/${id}`, requestTemplate)
+            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const newProduct = await axios.put(`${baseUrl}/products/${id}`, requestTemplate)
             console.log(newProduct.data);
             await fetchProduct()
         } catch (err) {

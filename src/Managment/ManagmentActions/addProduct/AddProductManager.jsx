@@ -9,9 +9,10 @@ export default function AddProductManager() {
     const navigate = useNavigate()
     const { handleChange, requestTemplate } = useForm(addProductInitial)
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         try {
-            const newProduct = await axios.post("http://localhost:3000/products", requestTemplate)
+            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const newProduct = await axios.post(`${baseUrl}/products`, requestTemplate)
             console.log(newProduct.data);
 
         } catch (err) {

@@ -11,7 +11,8 @@ export default function HomePageManager() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/products');
+        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const response = await axios.get(`${baseUrl}/products`);
         setProducts(response.data);
         setLoading(false);
       } catch (err) {

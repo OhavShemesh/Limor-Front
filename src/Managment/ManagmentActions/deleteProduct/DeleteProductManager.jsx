@@ -28,9 +28,8 @@ export default function DeleteProductManager() {
 
     const handleDeleteProduct = async (productId) => {
         try {
-            console.log('Deleting product with ID:', productId);
-
-            await axios.delete(`http://localhost:3000/products/${productId}`);
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
+            await axios.delete(`${baseUrl}/products/${productId}`);
             await fetchProducts(); // Fetch the updated product list after deletion
         } catch (err) {
             console.log(err);

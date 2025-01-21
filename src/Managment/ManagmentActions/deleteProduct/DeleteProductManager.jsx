@@ -12,7 +12,7 @@ export default function DeleteProductManager() {
     const fetchProducts = useCallback(async () => {
         setIsLoading(true);
         try {
-            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const allFetchedProducts = await axios.get(`${baseUrl}/products`);
             setAllProducts(allFetchedProducts.data);
         } catch (err) {

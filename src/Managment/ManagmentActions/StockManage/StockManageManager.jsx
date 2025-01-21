@@ -39,7 +39,7 @@ export default function StockManageManager() {
 
     const handleUpdateStock = async (productId, newStock) => {
         try {
-            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const product = await axios.patch(`${baseUrl}/products/updateStock/${productId}`, { newStock: newStock })
             console.log(product.data);
         } catch (err) {

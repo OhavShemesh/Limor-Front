@@ -11,7 +11,7 @@ export default function HomePageManager() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
         const response = await axios.get(`${baseUrl}/products`);
         setProducts(response.data);
         setLoading(false);

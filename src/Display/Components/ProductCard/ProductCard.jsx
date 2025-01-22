@@ -11,11 +11,18 @@ import {
 import { AddShoppingCart } from '@mui/icons-material';
 
 export default function ProductCard({ product, rl }) {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  console.log(product.imageUrl);
+
   return (
     <Container sx={{ paddingTop: "3vh", position: "relative" }}>
       <Card sx={{ borderRadius: "20px" }}>
         <CardActionArea sx={{ width: "100%", height: "30vh", display: "flex", flexDirection: rl % 2 == 0 ? "row" : "row-reverse", alignItems: "flex-start" }}>
-          <CardMedia sx={{ width: "30%", height: "29vh", borderRadius: "40px" }} component={"img"} src={product.imageUrl} />
+          <CardMedia
+            sx={{ width: "30%", height: "29vh", borderRadius: "40px" }}
+            component="img"
+            src={`${baseUrl}/${product.imageUrl.replace(/\\/g, "/")}`}
+          />
           <CardContent sx={{ width: "70%", display: "flex", alignItems: "flex-end", flexDirection: "column", gap: 2 }}>
             <Typography variant='h4' sx={{ fontWeight: "bold", direction: "rtl" }}>{product.name}</Typography>
             <Typography sx={{ direction: "rtl" }}>{product.description}</Typography>

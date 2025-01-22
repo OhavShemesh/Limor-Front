@@ -11,17 +11,21 @@ export default function AddProductManager() {
 
     const handleSubmit = async () => {
         try {
+            console.log("form Data", requestTemplate);
+
+
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
-            const newProduct = await axios.post(`${baseUrl}/products`, requestTemplate)
-            console.log(newProduct.data);
+            const response = await axios.post(`${baseUrl}/products`, requestTemplate, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(response.data);
 
         } catch (err) {
             console.log(err);
-
         }
-
-    }
-
+    };
     return (
         <AddProduct navigate={navigate} handleChange={handleChange} handleSubmit={handleSubmit} />
     )

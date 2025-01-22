@@ -66,7 +66,7 @@ export default function ContactMe() {
                     >
                         <IconButton sx={{ display: "flex", gap: 0.5 }}>
                             <Mail sx={{ fontSize: "30px" }} />
-                            <Typography sx={{ fontSize: "20px" }}>lshemesh12@gmail.com</Typography>
+                            <Typography sx={{ fontSize: "20px" }}>ld9081972@gmail.com</Typography>
                         </IconButton>
                         <Typography sx={{ color: "rgb(0,0,0,0.6)", textAlign: "center", width: "90%" }}>קישור לשליחת הודעת מייל לבקשת הצעת מחיר ושאלות</Typography>
                     </Box>

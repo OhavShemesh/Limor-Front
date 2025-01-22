@@ -29,7 +29,7 @@ export default function Header({ navigate }) {
           fontSize: '1.2rem',
           fontWeight: 'bold'
         }}>
-          לימור דהרי
+          לימור דהרי - פתרונות לימודיים
         </Link>
         <Box sx={{
           display: 'flex',

@@ -4,17 +4,9 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import React, { useState } from 'react';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function AddProduct({ navigate, handleChange, handleSubmit }) {
+export default function AddProduct({ navigate, handleChange, handleSubmit, preview, handleFileChange }) {
 
-    const [preview, setPreview] = useState(null);
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setPreview(URL.createObjectURL(file)); // Set preview URL
-            handleChange({ target: { name: 'imageUrl', value: file } }); // Trigger handleChange with the file
-        }
-    };
 
     return (
         <>
@@ -126,19 +118,21 @@ export default function AddProduct({ navigate, handleChange, handleSubmit }) {
                             },
                         }}
                     />
-
                     <Box
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            gap: 1,
-                            cursor: 'pointer',
+                            gap: 2,
                             padding: 2,
                             border: '2px dashed #3a3a3a',
                             borderRadius: '8px',
+                            cursor: 'pointer',
                             '&:hover': { borderColor: '#444444' },
                             '&:active': { borderColor: '#ffffff' },
+                            width: '100%',
+                            pointerEvents: preview ? "none" : "auto"
+
                         }}
                         onClick={() => document.getElementById('image-upload-input').click()}
                     >
@@ -146,7 +140,12 @@ export default function AddProduct({ navigate, handleChange, handleSubmit }) {
                             <img
                                 src={preview}
                                 alt="Preview"
-                                style={{ width: '100px', height: '100px', borderRadius: '8px' }}
+                                style={{
+                                    width: '150px',
+                                    height: '150px',
+                                    borderRadius: '8px',
+                                    objectFit: 'cover',
+                                }}
                             />
                         ) : (
                             <UploadFileIcon sx={{ fontSize: '48px', color: '#aaaaaa' }} />
@@ -163,7 +162,6 @@ export default function AddProduct({ navigate, handleChange, handleSubmit }) {
                             onChange={handleFileChange}
                         />
                     </Box>
-
                     <TextField
                         label="כמה במלאי"
                         type="number"

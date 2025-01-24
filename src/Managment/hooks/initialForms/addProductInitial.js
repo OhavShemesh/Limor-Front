@@ -2,7 +2,6 @@ const addProductInitial = {
     name: "",
     description: "",
     price: "",
-    imageUrl: "",
     inStock: ""
 
 }

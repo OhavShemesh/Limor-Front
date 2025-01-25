@@ -38,6 +38,22 @@ export default function HomePageManager() {
     }
   }
 
+  useEffect(() => {
+    const fetchEnvInfo = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        const response = await fetch(`${baseUrl}/env-info`);
+        const envInfo = await response.json();
+        console.log(`🟢 Environment Info:`, envInfo);
+      } catch (error) {
+        console.error("🔴 Failed to fetch environment info:", error);
+      }
+    };
+
+    fetchEnvInfo();
+  }, []);
+
+
 
 
   if (loading) return <Box sx={{ textAlign: 'center', mt: 4 }}>Loading...</Box>;

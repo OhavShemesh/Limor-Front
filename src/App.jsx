@@ -7,10 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 import Layout from './Display/Layout/Layout';
 
 function App() {
-  useEffect(() => {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
-    console.log(baseUrl);
-  }, [])
 
   return (
     <BrowserRouter>

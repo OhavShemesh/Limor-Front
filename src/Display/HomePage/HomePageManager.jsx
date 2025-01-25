@@ -24,12 +24,24 @@ export default function HomePageManager() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
+
+  const deleteAllImagesFromDB = async () => {
+    try {
+      console.log("here");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await axios.delete(`${baseUrl}/delete-all-images`)
+      console.log(response.data);
+
+    } catch (err) {
+      console.log(err);
+
+    }
+  }
+
+
 
   if (loading) return <Box sx={{ textAlign: 'center', mt: 4 }}>Loading...</Box>;
   if (error) return <Box sx={{ textAlign: 'center', mt: 4, color: 'red' }}>{error}</Box>;
 
-  return <HomePage products={products} />;
+  return <HomePage products={products} deleteAllImagesFromDB={deleteAllImagesFromDB} />;
 }

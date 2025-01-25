@@ -1,14 +1,18 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import ProductCard from '../Components/ProductCard/ProductCard';
+import { Delete } from '@mui/icons-material';
 
-export default function HomePage({ products }) {
+export default function HomePage({ products, deleteAllImagesFromDB }) {
   return (
     <Box sx={{
       padding: '20px',
       maxWidth: '1200px',
       margin: '0 auto'
     }}>
+      <IconButton onClick={() => deleteAllImagesFromDB()} sx={{ position: "absolute", left: 0, top: 50 }}>
+        <Delete sx={{ fontSize: "36px" }} />
+      </IconButton>
       <Typography
         variant="h3"
         sx={{

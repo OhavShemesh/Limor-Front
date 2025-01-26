@@ -128,6 +128,23 @@ export default function HomeManagment({ navigate }) {
                 >
                     ניהול מלאי
                 </Button>
+                <Button
+                    variant="outlined"
+                    sx={{
+                        padding: 1.5,
+                        fontSize: '0.9rem',
+                        textTransform: 'none',
+                        color: '#ffffff',
+                        borderColor: '#3a3a3a',
+                        '&:hover': {
+                            backgroundColor: '#333333',
+                            borderColor: '#444444',
+                        }
+                    }}
+                    onClick={() => navigate(ROUTES.PICUTRE_MANAGE)}
+                >
+                    ניהול תמונות
+                </Button>
             </Box>
         </Box>
     );

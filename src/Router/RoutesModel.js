@@ -6,6 +6,7 @@ export const ROUTES = {
     EDIT_SINGLE_PRODUCT: "/admin/edit-product",
     DELETE_PRODUCT: "/admin/delete-product",
     STOCK_MANAGE: "/admin/stock-manage",
+    PICUTRE_MANAGE: "/admin/picture-manage",
     CONTACT_ME: "/contact",
     NOT_FOUND: "*"
 };

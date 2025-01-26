@@ -15,7 +15,9 @@ export default function ProductCard({ product, rl }) {
   const [imageSrc, setImageSrc] = useState()
   const fetchImage = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/get-image/${product.imageUrl}`);
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+      const response = await axios.get(`${baseUrl}/get-image-by-id/${product.imageUrl}`);
       setImageSrc(response.data.image)
     } catch (err) {
       console.error(err);

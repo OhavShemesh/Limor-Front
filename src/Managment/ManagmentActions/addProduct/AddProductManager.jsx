@@ -26,16 +26,23 @@ export default function AddProductManager() {
             alert('Image uploaded successfully!');
             setSelectedImageFile(null);
             setPreview(null);
+            return "success"
         } catch (err) {
             console.error(err);
             alert('Failed to upload image.');
+            return "failed"
         }
     };
 
 
     const handleSubmit = async () => {
         try {
-            await handleUpload()
+            let upload = await handleUpload()
+            console.log(upload);
+            if (!upload == "success") {
+                alert("failed")
+            }
+
             console.log(requestTemplate);
 
             const baseUrl = import.meta.env.VITE_API_BASE_URL;

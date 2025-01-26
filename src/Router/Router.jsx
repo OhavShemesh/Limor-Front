@@ -9,6 +9,7 @@ import EditProductManager from '../Managment/ManagmentActions/editProduct/EditPr
 import EditSingleProductManager from '../Managment/ManagmentActions/editProduct/EditSingleProductManager'
 import StockManageManager from '../Managment/ManagmentActions/StockManage/StockManageManager'
 import ContactMeManager from '../Pages/ContactMe/ContactMeManager'
+import PictureManageManager from '../Managment/ManagmentActions/pictureManage/PictureManageManager'
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
       <Route path={ROUTES.DELETE_PRODUCT} element={<DeleteProductManager />} />
       <Route path={ROUTES.STOCK_MANAGE} element={<StockManageManager />} />
       <Route path={ROUTES.CONTACT_ME} element={<ContactMeManager />} />
+      <Route path={ROUTES.PICUTRE_MANAGE} element={<PictureManageManager />} />
       <Route path={ROUTES.NOT_FOUND} element={<h1>404 - Page Not Found</h1>} />
     </Routes>
   )

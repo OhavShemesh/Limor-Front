@@ -1,8 +1,10 @@
 import { Undo } from '@mui/icons-material'
 import { Box, Button, Card, CardHeader, CardMedia, IconButton, TextField, Typography } from '@mui/material'
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+
 import React from 'react'
 
-export default function EditSingleProduct({ product, navigate, handleChange, handleSubmit }) {
+export default function EditSingleProduct({ product, navigate, handleChange, handleSubmit, imageSrc, preview, handleFileChange }) {
     return (
         <>
             <Typography
@@ -45,19 +47,62 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                             boxShadow: "0px 0px 24px rgba(255, 255, 255, 0.3)"
                         }}
                     >
-                        <CardMedia component={"img"} src={product.imageUrl} alt={product.name} sx={{ height: "200px" }} />
-                        <CardHeader title={product.name} subheader={product.description} sx={{ textAlign: "right", direction: "rtl" }} />
+                        <Box sx={{ position: 'relative', height: '200px' }}>
+                            <CardMedia
+                                component="img"
+                                src={imageSrc}
+                                alt={product?.name}
+                                sx={{
+                                    height: '200px',
+                                    opacity: 1, // Lower opacity for the image
+                                    '&:hover': {
+                                        opacity: 1, // Restore opacity on hover
+                                    },
+                                }}
+                            />
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    position: 'absolute',
+                                    bottom: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, 50%)', // Center the text
+                                    color: 'white',
+                                    fontWeight: 'bold',
+                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Add shadow to make the text stand out
+                                    opacity: 0.6, // Adjust text opacity
+                                    fontSize: "1rem"
+                                }}
+                            >
+                                תמונה
+                            </Typography>
+                        </Box>
+                        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, paddingTop: 2 }}>
+                            <Typography sx={{ textAlign: "right", direction: "rtl", width: "90%", border: "1px solid", borderRadius: "20px", padding: "5px 10px 5px 10px", fontSize: "1.2rem" }} >{`שם מוצר: ${product?.name}`}</Typography>
+                            <Typography sx={{ textAlign: "right", direction: "rtl", width: "90%", border: "1px solid", borderRadius: "20px", padding: "5px 10px 5px 10px", fontSize: "1.2rem" }} >{`תיאור מוצר: ${product?.description}`}</Typography>
+                            <Typography sx={{ textAlign: "right", direction: "rtl", width: "90%", border: "1px solid", borderRadius: "20px", padding: "5px 10px 5px 10px", fontSize: "1.2rem" }} >{`מחיר מוצר: ${product?.price}`}</Typography>
+                            <Typography sx={{ textAlign: "right", direction: "rtl", width: "90%", border: "1px solid", borderRadius: "20px", padding: "5px 10px 5px 10px", fontSize: "1.2rem" }} >{`מלאי מוצר: ${product?.inStock}`}</Typography>
+                        </Box>
                     </Card>
                 </Box>
                 <Box sx={{ width: "48%", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
                     <Typography variant='h4' sx={{ fontFamily: "tahoma", color: "white" }}>מוצר חדש</Typography>
+                    <Typography sx={{
+                        fontFamily: 'tahoma',
+                        color: 'white',
+                        textAlign: 'center',
+                        marginTop: -4,
+                        backgroundColor: '#1e1e1e',
+                    }} variant='body1'>יש למלא את כל הפרטים</Typography>
+
                     <Card
                         sx={{
                             width: "300px",
-                            height: "auto", // Adjust height based on content
+                            height: "auto",
                             borderRadius: "40px",
                             boxShadow: "0px 0px 24px rgba(255, 255, 255, 0.3)",
                             padding: 3,
+                            gap: 1,
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
@@ -66,26 +111,47 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                         }}
                     >
                         {/* Image URL Section */}
-                        <TextField
-                            label="כתובת תמונה"
-                            name='imageUrl'
-                            onChange={handleChange}
-                            variant="outlined"
-                            fullWidth
-                            inputProps={{ style: { textAlign: "right", color: "white", direction: "rtl" } }}
+                        <Box
                             sx={{
-                                marginBottom: 2,
-                                backgroundColor: '#3C3C3C', // Lighter background for inputs
-                                borderRadius: "20px", // Rounded inputs
-                                '& .MuiOutlinedInput-root': {
-                                    borderRadius: "20px",
-                                },
-                                '& .MuiInputLabel-root': {
-                                    color: 'white', // Label color
-                                }
-                            }}
-                        />
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: 2,
+                                padding: 2,
+                                border: '2px dashed #3a3a3a',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                '&:hover': { borderColor: '#444444' },
+                                '&:active': { borderColor: '#ffffff' },
+                                width: '100%',
+                                pointerEvents: preview ? "none" : "auto"
 
+                            }}
+                            onClick={() => document.getElementById('image-upload-input').click()}
+                        >
+                            {preview ? (
+                                <img
+                                    src={preview}
+                                    alt="Preview"
+                                    style={{
+                                        width: '150px',
+                                        height: '150px',
+                                        borderRadius: '8px',
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                            ) : (
+                                <UploadFileIcon sx={{ fontSize: '48px', color: '#aaaaaa' }} />
+                            )}
+                            <input
+                                id="image-upload-input"
+                                name="imageUrl"
+                                type="file"
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                            />
+                        </Box>
                         {/* Name Section */}
                         <TextField
                             label="שם מוצר"
@@ -173,7 +239,7 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                                 }
                             }}
                         />
-                        <Button onClick={() => handleSubmit()} variant='contained' sx={{ backgroundColor: "grey", width: "50%", margin: "auto", borderRadius: "30px", fontSize: "18px", fontFamily: "tahoma" }}>
+                        <Button onClick={() => handleSubmit(product._id)} variant='contained' sx={{ backgroundColor: "grey", width: "50%", margin: "auto", borderRadius: "30px", fontSize: "18px", fontFamily: "tahoma" }}>
                             שמור
                         </Button>
                     </Card>

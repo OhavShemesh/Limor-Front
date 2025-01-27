@@ -15,7 +15,8 @@ export default function StockManageManager() {
     const fetchProducts = useCallback(async () => {
         setIsLoading(true);
         try {
-            const allFetchedProducts = await axios.get('http://localhost:3000/products');
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
+            const allFetchedProducts = await axios.get(`${baseUrl}/products`);
             setAllProducts(allFetchedProducts.data);
         } catch (err) {
             console.log(err);

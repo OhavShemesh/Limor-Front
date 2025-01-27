@@ -4,7 +4,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import React, { useState } from 'react';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function AddProduct({ navigate, handleChange, handleSubmit, preview, handleFileChange, isCounting, countdown }) {
+export default function AddProduct({ navigate, handleChange, handleSubmit, preview, handleFileChange }) {
 
 
 
@@ -195,11 +195,6 @@ export default function AddProduct({ navigate, handleChange, handleSubmit, previ
                     >
                         Check
                     </Button>
-                    {isCounting && (
-                        <div>
-                            <p>Processing... Countdown: {countdown} seconds remaining</p>
-                        </div>
-                    )}
                 </Box>
             </Box>
         </>

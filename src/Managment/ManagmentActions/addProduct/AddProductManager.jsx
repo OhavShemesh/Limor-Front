@@ -10,6 +10,8 @@ export default function AddProductManager() {
     const { handleChange, requestTemplate } = useForm(addProductInitial)
     const [preview, setPreview] = useState(null);
     const [selectedImageFile, setSelectedImageFile] = useState(null);  // Store the file
+    const [countdown, setCountdown] = useState(0);
+    const [isCounting, setIsCounting] = useState(false); //
 
     const handleUpload = async () => {
         if (!selectedImageFile) {
@@ -37,20 +39,45 @@ export default function AddProductManager() {
 
     const handleSubmit = async () => {
         try {
-            let upload = await handleUpload()
+            let upload = await handleUpload();
             console.log(upload);
-            if (!upload == "success") {
-                alert("failed")
+            if (upload !== "success") {
+                alert("Upload failed");
+                return;
             }
 
             console.log(requestTemplate);
 
+            // Start countdown and display it on the screen
+            setCountdown(5);
+            setIsCounting(true);
+            const countdownInterval = setInterval(() => {
+                setCountdown((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(countdownInterval);
+                        setIsCounting(false); // Stop showing countdown when it reaches 0
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            // Send the request
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.post(`${baseUrl}/products`, requestTemplate);
-            console.log(response.data);
 
+            // Wait for the countdown to finish
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+
+            // Check response and alert success
+            console.log(response.data);
+            alert("Product created successfully!");
         } catch (err) {
+            // Wait for the countdown to finish
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+
+            // Alert problem
             console.log(err);
+            alert("There was a problem creating the product.");
         }
     };
 
@@ -65,6 +92,6 @@ export default function AddProductManager() {
     };
 
     return (
-        <AddProduct navigate={navigate} handleChange={handleChange} handleSubmit={handleSubmit} preview={preview} selectedImageFile={selectedImageFile} handleFileChange={handleFileChange} />
+        <AddProduct navigate={navigate} handleChange={handleChange} handleSubmit={handleSubmit} preview={preview} selectedImageFile={selectedImageFile} handleFileChange={handleFileChange} isCounting={isCounting} countdown={countdown}/>
     )
 }

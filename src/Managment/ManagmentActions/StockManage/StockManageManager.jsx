@@ -9,6 +9,9 @@ export default function StockManageManager() {
     const [allProducts, setAllProducts] = useState()
     const [cardPosition, setCardPosition] = useState({ top: 0, left: 0 });
     const [hoveredProduct, setHoveredProduct] = useState(null);
+    const [imageSources, setImageSources] = useState({});
+    const [stockDetermineInput, setStockDetermineInput] = useState({})
+    const [stockAdditionInput, setStockAdditionInput] = useState({})
 
 
 
@@ -38,17 +41,79 @@ export default function StockManageManager() {
         setHoveredProduct(null);
     };
 
-    const handleUpdateStock = async (productId, newStock) => {
+    const handleDetermineStock = async (productId) => {
+        try {
+            const newStock = stockDetermineInput[productId];
+
+            if (!newStock) {
+                console.log(`No stock value provided for product ID: ${productId}`);
+                return;
+            }
+
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
+            const product = await axios.patch(`${baseUrl}/products/determineStock/${productId}`, { newStock });
+        } catch (err) {
+            console.error("Error updating stock:", err);
+        } finally {
+            fetchProducts()
+        }
+    };
+
+    const handleAddToStock = async (productId) => {
+        try {
+            const stockAddition = stockAdditionInput[productId];
+
+            if (!stockAddition) {
+                console.log(`No stock value provided for product ID: ${productId}`);
+                return;
+            }
+
+            const baseUrl = import.meta.env.VITE_API_BASE_URL;
+            const product = await axios.patch(`${baseUrl}/products/addToStock/${productId}`, { stockAddition });
+        } catch (err) {
+            console.error("Error updating stock:", err);
+        } finally {
+            fetchProducts()
+        }
+    };
+
+    const fetchImage = async (imageId) => {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
-            const product = await axios.patch(`${baseUrl}/products/updateStock/${productId}`, { newStock: newStock })
-            console.log(product.data);
+            const response = await axios.get(`${baseUrl}/get-image-by-id/${imageId}`);
+            return response.data.image; // Return the base64 image
         } catch (err) {
-            console.log(err);
-
+            console.error(err);
         }
-    }
+    };
 
+    useEffect(() => {
+        const loadImages = async () => {
+            setIsLoading(true);
+            try {
+                const sources = {};
+                for (const product of allProducts) {
+                    sources[product._id] = await fetchImage(product.imageUrl);
+                }
+                setImageSources(sources);
+            } catch (err) {
+                console.error("Error loading images:", err);
+            } finally {
+                setIsLoading(false); // Ensure loading is false after images are processed
+            }
+        };
+
+        loadImages();
+    }, [allProducts]);
+
+    const handleChangeDetermineValue = (e) => {
+        const { name, value } = e.target
+        setStockDetermineInput((prev) => ({ ...prev, [name]: value }))
+    }
+    const handleChangeAdditionValue = (e) => {
+        const { name, value } = e.target
+        setStockAdditionInput((prev) => ({ ...prev, [name]: value }))
+    }
 
 
     if (isLoading) {
@@ -56,6 +121,6 @@ export default function StockManageManager() {
     }
 
     return (
-        <StockManage navigate={navigate} allProducts={allProducts} handleMouseEnter={handleMouseEnter} hoveredProduct={hoveredProduct} cardPosition={cardPosition} handleMouseLeave={handleMouseLeave} handleUpdateStock={handleUpdateStock} />
+        <StockManage navigate={navigate} allProducts={allProducts} handleMouseEnter={handleMouseEnter} hoveredProduct={hoveredProduct} cardPosition={cardPosition} handleMouseLeave={handleMouseLeave} handleDetermineStock={handleDetermineStock} imageSources={imageSources} handleChangeDetermineValue={handleChangeDetermineValue} handleChangeAdditionValue={handleChangeAdditionValue} handleAddToStock={handleAddToStock} />
     )
 }

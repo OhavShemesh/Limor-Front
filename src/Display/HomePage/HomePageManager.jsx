@@ -27,10 +27,8 @@ export default function HomePageManager() {
 
   const deleteAllImagesFromDB = async () => {
     try {
-      console.log("here");
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const response = await axios.delete(`${baseUrl}/delete-all-images`)
-      console.log(response.data);
 
     } catch (err) {
       console.log(err);

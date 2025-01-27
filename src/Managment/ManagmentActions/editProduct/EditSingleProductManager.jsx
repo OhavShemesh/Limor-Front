@@ -32,7 +32,6 @@ export default function EditSingleProductManager() {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const newProduct = await axios.put(`${baseUrl}/products/${id}`, requestTemplate)
-            console.log(newProduct.data);
             await fetchProduct()
         } catch (err) {
             console.log(err);

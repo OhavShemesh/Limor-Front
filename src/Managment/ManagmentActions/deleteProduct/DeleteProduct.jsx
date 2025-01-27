@@ -3,7 +3,7 @@ import { Box, Card, CardHeader, CardMedia, Typography, Button, IconButton } from
 import React, { useState, useEffect } from 'react';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function DeleteProduct({ allProducts, handleDeleteProduct, handleFlip, flippedCards,navigate }) {
+export default function DeleteProduct({ allProducts, handleDeleteProduct, handleFlip, flippedCards, navigate, fetchImage, imageSources }) {
 
     return (
         <Box
@@ -14,7 +14,10 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
                 minHeight: "92vh"
             }}
         >
-            <IconButton onClick={() => navigate(ROUTES.ADMIN)} sx={{ position: "absolute", bottom: 40, right: 10, display: "flex", gap: 1, border: "1px solid white", borderRadius: "20px" }}>
+            <IconButton
+                onClick={() => navigate(ROUTES.ADMIN)}
+                sx={{ position: "absolute", bottom: 40, right: 10, display: "flex", gap: 1, border: "1px solid white", borderRadius: "20px" }}
+            >
                 <Typography color='white' variant='body1'>חזרה</Typography>
                 <Undo sx={{ color: "white" }} />
             </IconButton>
@@ -31,6 +34,7 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
             >
                 מחיקת מוצר
             </Typography>
+
             <Box
                 sx={{
                     display: 'flex',
@@ -77,7 +81,7 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
                                 <CardMedia
                                     height="200px"
                                     component="img"
-                                    src={product.imageUrl}
+                                    src={imageSources[product._id] || ''} // Use the loaded image source or empty string
                                     alt={product.name}
                                 />
                                 <CardHeader

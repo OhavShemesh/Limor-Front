@@ -3,7 +3,7 @@ import React from 'react'
 import ROUTES from '../../../Router/RoutesModel'
 import { Undo } from '@mui/icons-material'
 
-export default function EditProduct({ allProducts, navigate }) {
+export default function EditProduct({ allProducts = [], navigate, imageSources }) {
     return (
         <Box
             sx={{
@@ -38,7 +38,7 @@ export default function EditProduct({ allProducts, navigate }) {
             }}>
                 {allProducts.map((product) => (
                     <Card onClick={() => { navigate(ROUTES.EDIT_SINGLE_PRODUCT + "/" + product._id) }} key={product._id} sx={{ width: "300px", height: "500px", borderRadius: "40px", border: '1px solid white', cursor: "pointer" }}>
-                        <CardMedia component={"img"} src={product.imageUrl} alt={product.name} height={"200px"} />
+                        <CardMedia component={"img"} src={imageSources[product._id] || ''} alt={product.name} height={"200px"} />
                         <CardHeader sx={{ textAlign: "right", direction: "rtl" }} title={product.name} subheader={product.description} />
                     </Card>
                 ))}

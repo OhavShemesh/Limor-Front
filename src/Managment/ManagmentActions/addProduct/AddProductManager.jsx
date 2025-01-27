@@ -23,7 +23,6 @@ export default function AddProductManager() {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.post(`${baseUrl}/upload-image`, formData);
-            console.log(response.data);
             alert('Image uploaded successfully!');
             setSelectedImageFile(null);
             setPreview(null);
@@ -39,16 +38,11 @@ export default function AddProductManager() {
     const handleSubmit = async () => {
         try {
             let upload = await handleUpload()
-            console.log(upload);
             if (!upload == "success") {
                 alert("failed")
             }
-
-            console.log(requestTemplate);
-
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.post(`${baseUrl}/products`, requestTemplate);
-            console.log(response.data);
 
         } catch (err) {
             console.log(err);

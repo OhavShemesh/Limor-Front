@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 
-export default function StockManage({ navigate, allProducts, handleMouseEnter, hoveredProduct, cardPosition, handleMouseLeave, handleUpdateStock }) {
+export default function StockManage({ allProducts = [], handleMouseEnter, hoveredProduct, cardPosition, handleMouseLeave, handleDetermineStock, imageSources, handleChangeDetermineValue, handleChangeAdditionValue, handleAddToStock }) {
     return (
         <Box
             sx={{
@@ -48,7 +48,10 @@ export default function StockManage({ navigate, allProducts, handleMouseEnter, h
                         }}
                     >
                         <TableCell sx={{ color: "white", textAlign: "center", width: "10%", fontWeight: "bold", textDecoration: "underline", fontSize: "20px" }}>
-                            הוסף מלאי
+                            קבע מלאי
+                        </TableCell>
+                        <TableCell sx={{ color: "white", textAlign: "center", width: "10%", fontWeight: "bold", textDecoration: "underline", fontSize: "20px" }}>
+                            קבע מלאי
                         </TableCell>
                         <TableCell sx={{ color: "white", textAlign: "center", width: "10%", fontWeight: "bold", textDecoration: "underline", fontSize: "20px" }}>
                             מלאי נוכחי
@@ -74,7 +77,7 @@ export default function StockManage({ navigate, allProducts, handleMouseEnter, h
                             <TableCell sx={{ textAlign: "center" }}>
                                 <Stack direction="row" spacing={1} justifyContent="center">
                                     <Button
-                                        onClick={() => handleUpdateStock(product._id)}
+                                        onClick={() => handleAddToStock(product._id)}
                                         variant="contained"
                                         size="small"
                                         sx={{
@@ -90,6 +93,42 @@ export default function StockManage({ navigate, allProducts, handleMouseEnter, h
                                         variant="outlined"
                                         size="small"
                                         placeholder="כמות"
+                                        onChange={handleChangeAdditionValue}
+                                        name={product._id}
+                                        sx={{
+                                            backgroundColor: "white",
+                                            borderRadius: 1,
+                                            width: "60px",
+                                            textAlign: "center",
+                                        }}
+                                        inputProps={{
+                                            style: { textAlign: "center" },
+                                            maxLength: 3,
+                                        }}
+                                    />
+                                </Stack>
+                            </TableCell>
+                            <TableCell sx={{ textAlign: "center" }}>
+                                <Stack direction="row" spacing={1} justifyContent="center">
+                                    <Button
+                                        onClick={() => handleDetermineStock(product._id)}
+                                        variant="contained"
+                                        size="small"
+                                        sx={{
+                                            backgroundColor: "#4CAF50",
+                                            "&:hover": {
+                                                backgroundColor: "#45A049",
+                                            },
+                                        }}
+                                    >
+                                        קבע
+                                    </Button>
+                                    <TextField
+                                        variant="outlined"
+                                        size="small"
+                                        placeholder="כמות"
+                                        name={product._id}
+                                        onChange={handleChangeDetermineValue}
                                         sx={{
                                             backgroundColor: "white",
                                             borderRadius: 1,
@@ -136,7 +175,7 @@ export default function StockManage({ navigate, allProducts, handleMouseEnter, h
                         <CardMedia
                             component="img"
                             height="140"
-                            image={hoveredProduct.imageUrl}
+                            src={imageSources[hoveredProduct._id] || ''}
                             alt={hoveredProduct.name}
                         />
                         <CardContent>

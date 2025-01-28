@@ -8,6 +8,7 @@ export const ROUTES = {
     STOCK_MANAGE: "/admin/stock-manage",
     PICUTRE_MANAGE: "/admin/picture-manage",
     CONTACT_ME: "/contact",
+    SINGLE_PRODUCT: "/single-product",
     NOT_FOUND: "*"
 };
 

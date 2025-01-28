@@ -3,7 +3,7 @@ import { Box, Grid, IconButton, Typography } from '@mui/material';
 import ProductCard from '../Components/ProductCard/ProductCard';
 import { Delete } from '@mui/icons-material';
 
-export default function HomePage({ products, deleteAllImagesFromDB }) {
+export default function HomePage({ products, deleteAllImagesFromDB, navigate }) {
   return (
     <Box sx={{
       padding: '20px',
@@ -28,7 +28,7 @@ export default function HomePage({ products, deleteAllImagesFromDB }) {
 
       <Grid sx={{ paddingBottom: 5 }} container spacing={3}>
         {products.map((product, index) => (
-          <ProductCard product={product} rl={index} />
+          <ProductCard product={product} rl={index} navigate={navigate} />
         ))}
       </Grid>
     </Box>

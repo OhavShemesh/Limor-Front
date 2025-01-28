@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
 import HomePage from './HomePage';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePageManager() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -57,5 +58,5 @@ export default function HomePageManager() {
   if (loading) return <Box sx={{ textAlign: 'center', mt: 4 }}>Loading...</Box>;
   if (error) return <Box sx={{ textAlign: 'center', mt: 4, color: 'red' }}>{error}</Box>;
 
-  return <HomePage products={products} deleteAllImagesFromDB={deleteAllImagesFromDB} />;
+  return <HomePage products={products} deleteAllImagesFromDB={deleteAllImagesFromDB} navigate={navigate} />;
 }

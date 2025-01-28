@@ -42,9 +42,10 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                     <Card
                         sx={{
                             width: "300px",
-                            height: "500px",
+                            height: "fit-content",
                             borderRadius: "40px",
-                            boxShadow: "0px 0px 24px rgba(255, 255, 255, 0.3)"
+                            boxShadow: "0px 0px 24px rgba(255, 255, 255, 0.3)",
+                            paddingBottom: 3
                         }}
                     >
                         <Box sx={{ position: 'relative', height: '200px' }}>

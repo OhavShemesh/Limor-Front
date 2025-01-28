@@ -10,6 +10,45 @@ export default function AddProduct({ navigate, handleChange, handleSubmit, previ
 
     return (
         <>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    width: 'fit-content',
+                    backgroundColor: '#2a2a2a',
+                    padding: 3,
+                    borderRadius: 2,
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                    position: "absolute",
+                    right: 100,
+                    top: 100
+                }}
+            >
+                {/* Rules Section */}
+                <Box
+                    sx={{
+                        backgroundColor: '#1e1e1e',
+                        padding: 2,
+                        borderRadius: 1,
+                        marginBottom: 2,
+                        color: '#aaaaaa',
+                        fontSize: '0.85rem',
+                        lineHeight: 1.5,
+                    }}
+                >
+                    <Typography variant="h6" sx={{ color: '#ffffff', marginBottom: 1, fontSize: '1rem', direction: "rtl" }}>
+                        כללים לכתיבת תיאור מוצר
+                    </Typography>
+                    <ul style={{ paddingRight: '20px', margin: 0, direction: "rtl", display: "flex", flexDirection: "column", gap: 10 }}>
+                        <li>הפרד בין שורות בעזרת סימן ";" (לדוגמה: "שורה ראשונה; שורה שנייה").</li>
+                        <li>להדגשת טקסט, הקף אותו ב- <b>**</b> (לדוגמה: **טקסט מודגש**).</li>
+                        <li>ליצירת קו תחתון, הקף את הטקסט ב- <u>__</u> (לדוגמה: __טקסט בקו תחתון__).</li>
+                        <li>לרשימות עם נקודות, הוסף * בתחילת השורה (לדוגמה: * פריט ברשימה).</li>
+                    </ul>
+                </Box>
+            </Box>
+
             <IconButton
                 onClick={() => navigate(ROUTES.ADMIN)}
                 sx={{

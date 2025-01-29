@@ -8,6 +8,24 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
     const [discount, setDiscount] = useState(0);
     const [isPromoCodeVisible, setIsPromoCodeVisible] = useState(false);
 
+    function formatDescription(description) {
+        let formatted = description;
+
+        // Replace semicolons with line breaks
+        formatted = formatted.replace(/;/g, "<br />");
+
+        // Replace **text** with bold text
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+        // Replace __text__ with underlined text
+        formatted = formatted.replace(/__(.*?)__/g, "<u>$1</u>");
+
+        // Replace * at the start of a line with a bullet point
+        formatted = formatted.replace(/^\* (.*)/gm, "• $1");
+
+        return formatted;
+    }
+
     // Handle Promo Code Submission
     const handlePromoCodeApply = () => {
         if (promoCode === 'PROMO10') { // Assuming the promo code is "PROMO10" for a 10% discount
@@ -16,6 +34,8 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
             setDiscount(0);
             alert("קוד קידום לא תקף"); // Promo code not valid
         }
+        // Hide the promo code input field after applying
+        setIsPromoCodeVisible(false);
     };
 
     // Calculate the total price, total items, and total discount
@@ -62,6 +82,7 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                             '&:hover': {
                                 boxShadow: 3,
                             },
+                            flexDirection: "row-reverse"
                         }}
                     >
                         <CardMedia
@@ -77,12 +98,22 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                             alt={item.name}
                         />
                         <CardContent sx={{ flex: 1 }}>
-                            <Typography variant="h6" sx={{ fontWeight: '500', color: '#333' }}>
+                            <Typography variant="h6" sx={{ color: '#333', direction: "rtl", fontWeight: "bold" }}>
                                 {item.name}
                             </Typography>
-                            <Typography variant="body2" sx={{ mb: 1, color: '#777' }}>
-                                {item.description}
-                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    mb: 1,
+                                    color: '#777',
+                                    direction: "rtl",
+                                    maxHeight: '150px', // Set a max height for the description container
+                                    overflowY: 'auto',  // Enable vertical scrolling
+                                    wordWrap: 'break-word', // Prevent word breaking
+                                }}
+                                dangerouslySetInnerHTML={{ __html: formatDescription(item.description) }}
+                            />
+
                             <Typography variant="h6" sx={{ fontWeight: '600', color: '#d32f2f' }}>
                                 ${item.price}
                             </Typography>
@@ -120,41 +151,42 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                     boxShadow: 1,
                     mt: 3,
                 }}>
-                    <Typography variant="h6" sx={{ fontWeight: '600', color: '#333' }}>סיכום עגלה</Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                    <Typography variant="h6" sx={{ fontWeight: '600', color: '#333', direction: "rtl" }}>סיכום עגלה</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>סך כל הסכום</Typography>
                         <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>{totalItems}</Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>סך כל המחיר</Typography>
                         <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>${totalAmount.toFixed(2)}</Typography>
                     </Box>
 
                     {/* Promo Code Toggle Button */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                        <Button
-                            onClick={() => setIsPromoCodeVisible(!isPromoCodeVisible)}
-                            variant="outlined"
-                            color="primary"
-                            sx={{
-                                textTransform: 'none',
-                                fontSize: '0.9rem',
-                                padding: '6px 12px',
-                                borderRadius: 1,
-                                '&:hover': {
-                                    backgroundColor: '#cce7ff',
-                                },
-                            }}
-                        >
-                            {isPromoCodeVisible ? 'הסתר קוד קידום' : 'הכנס קוד קידום'}
-                        </Button>
-                    </Box>
+                    {!isPromoCodeVisible && (
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
+                            <Button
+                                onClick={() => setIsPromoCodeVisible(true)}
+                                variant="outlined"
+                                color="primary"
+                                sx={{
+                                    textTransform: 'none',
+                                    fontSize: '0.9rem',
+                                    padding: '6px 12px',
+                                    borderRadius: 1,
+                                    '&:hover': {
+                                        backgroundColor: '#cce7ff',
+                                    },
+                                }}
+                            >
+                                הכנס קוד קידום
+                            </Button>
+                        </Box>
+                    )}
 
                     {/* Promo Code Input Section */}
                     {isPromoCodeVisible && (
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                            <Typography variant="body1" sx={{ color: '#777' }}>קוד קידום</Typography>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: "row-reverse", gap: 1 }}>
                                 <TextField
                                     variant="outlined"
                                     value={promoCode}
@@ -163,10 +195,25 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                                         width: 120,
                                         '& .MuiInputBase-root': {
                                             fontSize: '0.9rem',
+                                            textAlign: 'right', // Align input text to the right
+                                        },
+                                        '& .MuiInputLabel-root': {
+                                            textAlign: 'right', // Align label text to the right
                                         },
                                     }}
                                     size="small"
                                     label="הכנס קוד"
+                                    InputLabelProps={{
+                                        style: {
+                                            textAlign: 'right', // Label aligned to right
+                                        },
+                                    }}
+                                    InputProps={{
+                                        style: {
+                                            textAlign: 'right', // Input aligned to right
+                                        },
+                                    }}
+                                    dir="rtl" // Ensures entire TextField is in RTL
                                 />
                                 <Button
                                     onClick={handlePromoCodeApply}
@@ -189,12 +236,12 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                         </Box>
                     )}
 
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>הנחה</Typography>
                         <Typography variant="body1" sx={{ fontWeight: '600', color: '#388e3c' }}>-${discount.toFixed(2)}</Typography>
                     </Box>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>סכום סופי</Typography>
                         <Typography variant="h6" sx={{ fontWeight: '600', color: '#d32f2f' }}>${finalAmount.toFixed(2)}</Typography>
                     </Box>
@@ -203,43 +250,26 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
 
             {/* Action Buttons */}
             {cart.length > 0 && (
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 10 }}>
                     {/* Clear Cart Button as IconButton with text */}
-                    <IconButton
-                        color="error"
-                        onClick={clearCart}
-                        sx={{
-                            fontSize: '1rem',
-                            padding: '6px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            borderRadius: 1,
-                            '&:hover': {
-                                backgroundColor: "rgba(244, 67, 54, 0.2)"
-                            },
-                        }}
-                    >
-                        <DeleteIcon sx={{ fontSize: '1.5rem' }} />
-                        <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                            נקה את העגלה
-                        </Typography>
+                    <IconButton onClick={clearCart} sx={{ color: '#d32f2f' }}>
+                        <DeleteIcon />
+                        <Typography variant="body2" sx={{ marginLeft: 1 }}>נקה את העגלה</Typography>
                     </IconButton>
 
-                    {/* Proceed to Payment Button with different background and size */}
+                    {/* Proceed to Checkout Button */}
                     <Button
                         variant="contained"
                         color="primary"
                         sx={{
-                            fontSize: '0.9rem',
-                            padding: '6px 12px',
-                            borderRadius: 2,
-                            bgcolor: '#388e3c',  // Changed background color to a darker green
-                            '&:hover': {
-                                bgcolor: '#2c6e2f',  // Darker shade on hover
-                            },
+                            fontSize: '1rem',
+                            padding: '10px 20px',
+                            borderRadius: 1,
+                            textTransform: 'none',
                         }}
+                        onClick={() => navigate(ROUTES.CHECKOUT)}
                     >
-                        המשך לתשלום
+                        להמשך לתשלום
                     </Button>
                 </Box>
             )}

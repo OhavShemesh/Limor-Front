@@ -12,7 +12,7 @@ import { AddShoppingCart } from '@mui/icons-material';
 import axios from 'axios';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function ProductCard({ product, rl, navigate, cart, addToCart }) {
+export default function ProductCard({ product, rl, navigate, addToCart }) {
   const [imageSrc, setImageSrc] = useState();
 
   const fetchImage = async () => {

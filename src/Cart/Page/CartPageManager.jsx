@@ -41,6 +41,8 @@ export default function CartPageManager() {
         loadImages();
     }, []);
 
+
+
     if (isLoading) {
         return <h1>Loading...</h1>
     }

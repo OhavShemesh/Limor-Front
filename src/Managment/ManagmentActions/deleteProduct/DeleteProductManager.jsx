@@ -10,7 +10,6 @@ export default function DeleteProductManager() {
 
     const navigate = useNavigate();
 
-    // Use useCallback to memoize fetchProducts
     const fetchProducts = useCallback(async () => {
         setIsLoading(true);
         try {
@@ -25,14 +24,14 @@ export default function DeleteProductManager() {
     }, []);
 
     useEffect(() => {
-        fetchProducts(); // Fetch products on component mount
+        fetchProducts();
     }, [fetchProducts]);
 
     const handleDeleteProduct = async (productId) => {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             await axios.delete(`${baseUrl}/products/${productId}`);
-            await fetchProducts(); // Fetch the updated product list after deletion
+            await fetchProducts(); 
         } catch (err) {
             console.log(err);
         }
@@ -51,7 +50,7 @@ export default function DeleteProductManager() {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.get(`${baseUrl}/get-image-by-id/${imageId}`);
-            return response.data.image; // Return the base64 image
+            return response.data.image;
         } catch (err) {
             console.error(err);
         }
@@ -69,7 +68,7 @@ export default function DeleteProductManager() {
             } catch (err) {
                 console.error("Error loading images:", err);
             } finally {
-                setIsLoading(false); // Ensure loading is false after images are processed
+                setIsLoading(false);
             }
         };
 

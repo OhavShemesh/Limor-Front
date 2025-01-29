@@ -35,7 +35,6 @@ export default function PictureManageManager() {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             await axios.delete(`${baseUrl}/delete-image-by-id/${imageId}`);
-            // Update state directly after deletion
             setAllImages((prevImages) =>
                 prevImages.filter((image) => image._id !== imageId)
             );

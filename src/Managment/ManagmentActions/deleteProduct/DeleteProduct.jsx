@@ -65,7 +65,6 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
                                 position: 'relative',
                             }}
                         >
-                            {/* Front Side */}
                             <Card
                                 sx={{
                                     width: '100%',
@@ -81,7 +80,7 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
                                 <CardMedia
                                     height="200px"
                                     component="img"
-                                    src={imageSources[product._id] || ''} // Use the loaded image source or empty string
+                                    src={imageSources[product._id] || ''}
                                     alt={product.name}
                                 />
                                 <CardHeader
@@ -91,7 +90,6 @@ export default function DeleteProduct({ allProducts, handleDeleteProduct, handle
                                 />
                             </Card>
 
-                            {/* Back Side */}
                             <Card
                                 sx={{
                                     width: '100%',

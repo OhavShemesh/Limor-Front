@@ -24,21 +24,20 @@ export default function HomePage({ products, navigate, addToCart }) {
         המוצרים שלנו
       </Typography>
 
-      {/* Navigate to Cart Button */}
       <IconButton
-        onClick={() => navigate(ROUTES.CART)} // Navigate to cart page
+        onClick={() => navigate(ROUTES.CART)}
         sx={{
           position: 'fixed',
           bottom: 50,
           right: 20,
-          backgroundColor: '#a29bfe', // Light purple background
+          backgroundColor: '#a29bfe',
           color: 'white',
           padding: '10px',
           borderRadius: '50%',
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
           '&:hover': {
-            backgroundColor: '#6c63ff', // Darker purple on hover
-            opacity: 1, // Ensures the button is fully visible on hover
+            backgroundColor: '#6c63ff', 
+            opacity: 1, 
           },
         }}
       >
@@ -48,7 +47,7 @@ export default function HomePage({ products, navigate, addToCart }) {
       <Grid sx={{ paddingBottom: 5 }} container spacing={3}>
         {products.map((product, index) => (
           <ProductCard
-            key={product._id}  // Ensure unique key for each product
+            key={product._id}  
             product={product}
             rl={index}
             navigate={navigate}

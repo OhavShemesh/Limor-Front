@@ -23,14 +23,14 @@ export default function EditProductManager() {
     }, []);
 
     useEffect(() => {
-        fetchProducts(); // Fetch products on component mount
+        fetchProducts(); 
     }, [fetchProducts]);
 
     const fetchImage = async (imageId) => {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.get(`${baseUrl}/get-image-by-id/${imageId}`);
-            return response.data.image; // Return the base64 image
+            return response.data.image; 
         } catch (err) {
             console.error(err);
         }
@@ -48,7 +48,7 @@ export default function EditProductManager() {
             } catch (err) {
                 console.error("Error loading images:", err);
             } finally {
-                setIsLoading(false); // Ensure loading is false after images are processed
+                setIsLoading(false); 
             }
         };
 

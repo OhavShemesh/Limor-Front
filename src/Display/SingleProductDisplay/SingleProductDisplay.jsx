@@ -13,14 +13,13 @@ export default function SingleProductDisplay({ product, formatDescription, image
                 height: 'fit-content',
             }}
         >
-            {/* Image Section */}
             <Box
                 sx={{
                     flex: 1,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'stretch', // Stretch image to match the height of the other section
-                    minHeight: '500px', // Ensure a minimum height
+                    alignItems: 'stretch', 
+                    minHeight: '500px', 
                 }}
             >
                 <CardMedia
@@ -28,16 +27,15 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     src={imageSrc}
                     alt={product.name}
                     sx={{
-                        width: '100%', // Make image fill the container width
-                        height: '100%', // Make the image stretch to the full height of the container
-                        objectFit: 'cover', // Maintain aspect ratio while covering the container
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover', 
                         borderRadius: '16px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                     }}
                 />
             </Box>
 
-            {/* Details Section */}
             <Box
                 sx={{
                     flex: 2,
@@ -48,11 +46,10 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     borderRadius: '16px',
                     boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                     padding: 4,
-                    alignItems: 'stretch', // Ensure it stretches to the height of the image
-                    minHeight: '500px', // Ensure the details section has at least the same height
+                    alignItems: 'stretch',
+                    minHeight: '500px', 
                 }}
             >
-                {/* Product Name */}
                 <Typography
                     variant="h3"
                     sx={{
@@ -67,7 +64,6 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     {product.name}
                 </Typography>
 
-                {/* Description Section */}
                 <Box>
                     <Typography
                         variant="h4"
@@ -94,7 +90,6 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     />
                 </Box>
 
-                {/* Price and Stock Section */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -105,7 +100,6 @@ export default function SingleProductDisplay({ product, formatDescription, image
                         gap: 4,
                     }}
                 >
-                    {/* Price */}
                     <Box>
                         <Typography
                             variant="h5"
@@ -130,7 +124,6 @@ export default function SingleProductDisplay({ product, formatDescription, image
                         </Typography>
                     </Box>
 
-                    {/* Stock */}
                     <Box>
                         <Typography
                             variant="h5"

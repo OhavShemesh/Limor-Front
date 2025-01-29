@@ -33,16 +33,12 @@ export default function SingleProductDisplayManager() {
     function formatDescription(description) {
         let formatted = description;
 
-        // Replace semicolons with line breaks
         formatted = formatted.replace(/;/g, "<br />");
 
-        // Replace **text** with bold text
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
-        // Replace __text__ with underlined text
         formatted = formatted.replace(/__(.*?)__/g, "<u>$1</u>");
 
-        // Replace * at the start of a line with a bullet point
         formatted = formatted.replace(/^\* (.*)/gm, "• $1");
 
         return formatted;

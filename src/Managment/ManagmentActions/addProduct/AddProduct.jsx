@@ -25,7 +25,6 @@ export default function AddProduct({ navigate, handleChange, handleSubmit, previ
                     top: 100
                 }}
             >
-                {/* Rules Section */}
                 <Box
                     sx={{
                         backgroundColor: '#1e1e1e',

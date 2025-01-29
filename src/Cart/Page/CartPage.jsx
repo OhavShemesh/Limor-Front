@@ -11,34 +11,29 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
     function formatDescription(description) {
         let formatted = description;
 
-        // Replace semicolons with line breaks
         formatted = formatted.replace(/;/g, "<br />");
 
-        // Replace **text** with bold text
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
-        // Replace __text__ with underlined text
         formatted = formatted.replace(/__(.*?)__/g, "<u>$1</u>");
 
-        // Replace * at the start of a line with a bullet point
         formatted = formatted.replace(/^\* (.*)/gm, "• $1");
 
         return formatted;
     }
 
-    // Handle Promo Code Submission
     const handlePromoCodeApply = () => {
-        if (promoCode === 'PROMO10') { // Assuming the promo code is "PROMO10" for a 10% discount
+        if (promoCode === 'PROMO10') {
             setDiscount(totalAmount * 0.1);
         } else {
             setDiscount(0);
-            alert("קוד קידום לא תקף"); // Promo code not valid
+            alert("קוד קידום לא תקף"); 
         }
-        // Hide the promo code input field after applying
+
         setIsPromoCodeVisible(false);
     };
 
-    // Calculate the total price, total items, and total discount
+  
     const totalItems = cart.length;
     const totalAmount = cart.reduce((total, item) => total + item.price, 0);
     const finalAmount = totalAmount - discount;
@@ -107,9 +102,9 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                                     mb: 1,
                                     color: '#777',
                                     direction: "rtl",
-                                    maxHeight: '150px', // Set a max height for the description container
-                                    overflowY: 'auto',  // Enable vertical scrolling
-                                    wordWrap: 'break-word', // Prevent word breaking
+                                    maxHeight: '150px',
+                                    overflowY: 'auto',  
+                                    wordWrap: 'break-word', 
                                 }}
                                 dangerouslySetInnerHTML={{ __html: formatDescription(item.description) }}
                             />
@@ -140,7 +135,6 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                 ))
             )}
 
-            {/* Cart Summary Section */}
             {cart.length > 0 && (
                 <Box sx={{
                     display: 'flex',
@@ -153,7 +147,7 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                 }}>
                     <Typography variant="h6" sx={{ fontWeight: '600', color: '#333', direction: "rtl" }}>סיכום עגלה</Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
-                        <Typography variant="body1" sx={{ color: '#777' }}>סך כל הסכום</Typography>
+                        <Typography variant="body1" sx={{ color: '#777' }}>כמות פריטים</Typography>
                         <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>{totalItems}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, flexDirection: "row-reverse" }}>
@@ -161,7 +155,6 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                         <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>${totalAmount.toFixed(2)}</Typography>
                     </Box>
 
-                    {/* Promo Code Toggle Button */}
                     {!isPromoCodeVisible && (
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
                             <Button
@@ -183,7 +176,6 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                         </Box>
                     )}
 
-                    {/* Promo Code Input Section */}
                     {isPromoCodeVisible && (
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: "row-reverse", gap: 1 }}>
@@ -195,25 +187,25 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                                         width: 120,
                                         '& .MuiInputBase-root': {
                                             fontSize: '0.9rem',
-                                            textAlign: 'right', // Align input text to the right
+                                            textAlign: 'right',
                                         },
                                         '& .MuiInputLabel-root': {
-                                            textAlign: 'right', // Align label text to the right
+                                            textAlign: 'right',
                                         },
                                     }}
                                     size="small"
                                     label="הכנס קוד"
                                     InputLabelProps={{
                                         style: {
-                                            textAlign: 'right', // Label aligned to right
+                                            textAlign: 'right', 
                                         },
                                     }}
                                     InputProps={{
                                         style: {
-                                            textAlign: 'right', // Input aligned to right
+                                            textAlign: 'right', 
                                         },
                                     }}
-                                    dir="rtl" // Ensures entire TextField is in RTL
+                                    dir="rtl"
                                 />
                                 <Button
                                     onClick={handlePromoCodeApply}
@@ -248,16 +240,13 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                 </Box>
             )}
 
-            {/* Action Buttons */}
             {cart.length > 0 && (
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 10 }}>
-                    {/* Clear Cart Button as IconButton with text */}
                     <IconButton onClick={clearCart} sx={{ color: '#d32f2f' }}>
                         <DeleteIcon />
                         <Typography variant="body2" sx={{ marginLeft: 1 }}>נקה את העגלה</Typography>
                     </IconButton>
 
-                    {/* Proceed to Checkout Button */}
                     <Button
                         variant="contained"
                         color="primary"

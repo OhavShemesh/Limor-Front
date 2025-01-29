@@ -32,16 +32,12 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
   function formatDescription(description) {
     let formatted = description;
 
-    // Replace semicolons with line breaks
     formatted = formatted.replace(/;/g, "<br />");
 
-    // Replace **text** with bold text
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
-    // Replace __text__ with underlined text
     formatted = formatted.replace(/__(.*?)__/g, "<u>$1</u>");
 
-    // Replace * at the start of a line with a bullet point
     formatted = formatted.replace(/^\* (.*)/gm, "• $1");
 
     return formatted;
@@ -55,7 +51,7 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
           display: 'flex',
           flexDirection: 'column',
-          height: '350px', // Increased card height
+          height: '350px', 
         }}
       >
         <CardActionArea
@@ -65,13 +61,13 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
             flexDirection: rl % 2 === 0 ? 'row' : 'row-reverse',
             gap: 2,
             alignItems: 'stretch',
-            height: '100%', // Ensures content fills the card
+            height: '100%', 
           }}
         >
           <CardMedia
             sx={{
               width: '40%',
-              height: '100%', // Make the image take up full height of the card
+              height: '100%',
               borderRadius: '12px',
               objectFit: 'cover',
             }}
@@ -87,7 +83,7 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
               justifyContent: 'space-between',
               gap: 1,
               padding: 2,
-              height: '100%', // Ensure content area also stretches to match the card height
+              height: '100%',
             }}
           >
             <Typography variant="h6" sx={{ fontWeight: 'bold', direction: 'rtl' }}>
@@ -97,9 +93,9 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
               sx={{
                 direction: 'rtl',
                 fontSize: '0.9rem',
-                overflowY: 'auto', // Makes the description scrollable
+                overflowY: 'auto',
                 textOverflow: 'ellipsis',
-                maxHeight: '10rem', // Limit height for description
+                maxHeight: '10rem',
               }}
               dangerouslySetInnerHTML={{ __html: formatDescription(product.description) }}
             />
@@ -113,7 +109,6 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
           </CardContent>
         </CardActionArea>
 
-        {/* Add to Cart Button */}
         <IconButton
           onClick={() => addToCart(product)}
           sx={{

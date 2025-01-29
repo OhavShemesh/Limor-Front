@@ -55,9 +55,9 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                                 alt={product?.name}
                                 sx={{
                                     height: '200px',
-                                    opacity: 1, // Lower opacity for the image
+                                    opacity: 1,  
                                     '&:hover': {
-                                        opacity: 1, // Restore opacity on hover
+                                        opacity: 1, 
                                     },
                                 }}
                             />
@@ -67,11 +67,11 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                                     position: 'absolute',
                                     bottom: '50%',
                                     left: '50%',
-                                    transform: 'translate(-50%, 50%)', // Center the text
+                                    transform: 'translate(-50%, 50%)',
                                     color: 'white',
                                     fontWeight: 'bold',
-                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Add shadow to make the text stand out
-                                    opacity: 0.6, // Adjust text opacity
+                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', 
+                                    opacity: 0.6, 
                                     fontSize: "1rem"
                                 }}
                             >
@@ -107,8 +107,8 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
-                            backgroundColor: '#2C2C2C', // Soft background for card
-                            color: 'white', // White text for readability
+                            backgroundColor: '#2C2C2C',
+                            color: 'white', 
                         }}
                     >
                         {/* Image URL Section */}
@@ -153,7 +153,6 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                                 onChange={handleFileChange}
                             />
                         </Box>
-                        {/* Name Section */}
                         <TextField
                             label="שם מוצר"
                             variant="outlined"
@@ -174,7 +173,6 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                             }}
                         />
 
-                        {/* Description Section */}
                         <TextField
                             label="תיאור מוצר"
                             variant="outlined"
@@ -197,7 +195,6 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                             }}
                         />
 
-                        {/* Price Section */}
                         <TextField
                             label="מחיר"
                             variant="outlined"
@@ -219,7 +216,6 @@ export default function EditSingleProduct({ product, navigate, handleChange, han
                             }}
                         />
 
-                        {/* In Stock Section */}
                         <TextField
                             label="כמות במלאי"
                             variant="outlined"

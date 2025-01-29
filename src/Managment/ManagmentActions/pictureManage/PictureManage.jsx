@@ -16,7 +16,6 @@ export default function PictureManage({ allImages = [], deleteImageById, convert
             }}
         >
             {allImages?.map((image) => {
-                // Convert the image data if it's not already in Base64 format
                 const base64ImageData =
                     typeof image.imageData.data === "string"
                         ? image.imageData.data

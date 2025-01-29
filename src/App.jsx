@@ -5,14 +5,17 @@ import Header from './Display/Layout/Header/Header';
 import Footer from './Display/Layout/Footer/Footer';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './Display/Layout/Layout';
+import { CartProvider } from './Cart/Provider/CartProvider';
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Layout>
-        <Router />
-      </Layout>
+      <CartProvider>
+        <Layout>
+          <Router />
+        </Layout>
+      </CartProvider>
     </BrowserRouter>
   );
 }

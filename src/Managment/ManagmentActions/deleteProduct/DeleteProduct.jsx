@@ -3,7 +3,7 @@ import { Box, Card, CardHeader, CardMedia, Typography, Button, IconButton } from
 import React, { useState, useEffect } from 'react';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function DeleteProduct({ allProducts, handleDeleteProduct, handleFlip, flippedCards, navigate, fetchImage, imageSources }) {
+export default function DeleteProduct({ allProducts, handleDeleteProduct, handleFlip, flippedCards, navigate, imageSources }) {
 
     return (
         <Box

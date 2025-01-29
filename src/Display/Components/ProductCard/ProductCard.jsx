@@ -12,7 +12,7 @@ import { AddShoppingCart } from '@mui/icons-material';
 import axios from 'axios';
 import ROUTES from '../../../Router/RoutesModel';
 
-export default function ProductCard({ product, rl, navigate }) {
+export default function ProductCard({ product, rl, navigate, cart, addToCart }) {
   const [imageSrc, setImageSrc] = useState();
 
   const fetchImage = async () => {
@@ -109,12 +109,13 @@ export default function ProductCard({ product, rl, navigate }) {
             <Typography sx={{ direction: 'rtl', color: (product.inStock > 0 ? '#28a745' : '#d32f2f') }}>
               {product.inStock > 0 ? `${product.inStock}` : 'אזל מהמלאי'}
             </Typography>
-            <br/>
+            <br />
           </CardContent>
         </CardActionArea>
 
         {/* Add to Cart Button */}
         <IconButton
+          onClick={() => addToCart(product)}
           sx={{
             display: 'flex',
             position: 'absolute',

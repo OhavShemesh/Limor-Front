@@ -9,6 +9,7 @@ export const ROUTES = {
     PICUTRE_MANAGE: "/admin/picture-manage",
     CONTACT_ME: "/contact",
     SINGLE_PRODUCT: "/single-product",
+    CART: "/cart",
     NOT_FOUND: "*"
 };
 

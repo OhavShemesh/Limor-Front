@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
-import { Box } from '@mui/material';
+import React from 'react';
 import Router from './Router/Router';
-import Header from './Display/Layout/Header/Header';
-import Footer from './Display/Layout/Footer/Footer';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './Display/Layout/Layout';
 import { CartProvider } from './Cart/Provider/CartProvider';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
+
+  const stripePromise = loadStripe('your-public-key-here');
 
   return (
     <BrowserRouter>
       <CartProvider>
-        <Layout>
-          <Router />
-        </Layout>
+        <Elements stripe={stripePromise}>
+          <Layout>
+            <Router />
+          </Layout>
+        </Elements>
       </CartProvider>
     </BrowserRouter>
   );

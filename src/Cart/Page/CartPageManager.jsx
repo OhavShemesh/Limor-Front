@@ -3,9 +3,10 @@ import CartPage from './CartPage'
 import { useCart } from '../Provider/CartProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ROUTES from '../../Router/RoutesModel';
 
 export default function CartPageManager() {
-    const { cart, removeFromCart, clearCart } = useCart();
+    const { cart, removeFromCart, clearCart, setFinalAmount } = useCart();
     const [imageSources, setImageSources] = useState({});
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
@@ -14,7 +15,7 @@ export default function CartPageManager() {
         try {
             const baseUrl = import.meta.env.VITE_API_BASE_URL;
             const response = await axios.get(`${baseUrl}/get-image-by-id/${imageId}`);
-            return response.data.image; 
+            return response.data.image;
         } catch (err) {
             console.error(err);
         }
@@ -40,7 +41,19 @@ export default function CartPageManager() {
 
         loadImages();
     }, []);
+    const handlePaymentOnClick = () => {
+        navigate(ROUTES.CHECKOUT)
+        setFinalAmount(() => {
+            let total = 0;
+            for (const cartItem of cart) {
+                total += cartItem.price
+                console.log(total);
 
+            }
+            return total;
+        });
+
+    }
 
 
     if (isLoading) {
@@ -48,6 +61,6 @@ export default function CartPageManager() {
     }
 
     return (
-        <CartPage cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} imageSources={imageSources} navigate={navigate} />
+        <CartPage cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} imageSources={imageSources} navigate={navigate} handlePaymentOnClick={handlePaymentOnClick} />
     )
 }

@@ -12,6 +12,7 @@ import ContactMeManager from '../Pages/ContactMe/ContactMeManager'
 import PictureManageManager from '../Managment/ManagmentActions/pictureManage/PictureManageManager'
 import SingleProductDisplayManager from '../Display/SingleProductDisplay/SingleProductDisplayManager'
 import CartPageManager from '../Cart/Page/CartPageManager'
+import CheckoutForm from '../Cart/Payment/CheckoutForm'
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
       <Route path={ROUTES.PICUTRE_MANAGE} element={<PictureManageManager />} />
       <Route path={ROUTES.SINGLE_PRODUCT + "/:id"} element={<SingleProductDisplayManager />} />
       <Route path={ROUTES.CART} element={<CartPageManager />} />
+      <Route path={ROUTES.CHECKOUT} element={<CheckoutForm />} />
       <Route path={ROUTES.NOT_FOUND} element={<h1>404 - Page Not Found</h1>} />
     </Routes>
   )

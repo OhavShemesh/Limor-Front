@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, Card, CardContent, CardMedia, IconButton, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ROUTES from '../../Router/RoutesModel';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from '../Payment/CheckoutForm'; // A component to handle the form
 
-export default function CartPage({ cart, removeFromCart, clearCart, imageSources, navigate }) {
+// Load the Stripe instance outside of a component’s render to avoid recreating the object on every render.
+const stripePromise = loadStripe('your-public-key-here'); // Replace with your Stripe public key
+
+export default function CartPage({ cart, removeFromCart, clearCart, imageSources, navigate, handlePaymentOnClick }) {
     const [promoCode, setPromoCode] = useState('');
     const [discount, setDiscount] = useState(0);
     const [isPromoCodeVisible, setIsPromoCodeVisible] = useState(false);
@@ -12,11 +18,8 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
         let formatted = description;
 
         formatted = formatted.replace(/;/g, "<br />");
-
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
         formatted = formatted.replace(/__(.*?)__/g, "<u>$1</u>");
-
         formatted = formatted.replace(/^\* (.*)/gm, "• $1");
 
         return formatted;
@@ -27,13 +30,12 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
             setDiscount(totalAmount * 0.1);
         } else {
             setDiscount(0);
-            alert("קוד קידום לא תקף"); 
+            alert("קוד קידום לא תקף");
         }
 
         setIsPromoCodeVisible(false);
     };
 
-  
     const totalItems = cart.length;
     const totalAmount = cart.reduce((total, item) => total + item.price, 0);
     const finalAmount = totalAmount - discount;
@@ -103,14 +105,15 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                                     color: '#777',
                                     direction: "rtl",
                                     maxHeight: '150px',
-                                    overflowY: 'auto',  
-                                    wordWrap: 'break-word', 
+                                    overflowY: 'auto',
+                                    wordWrap: 'break-word',
                                 }}
                                 dangerouslySetInnerHTML={{ __html: formatDescription(item.description) }}
                             />
 
                             <Typography variant="h6" sx={{ fontWeight: '600', color: '#d32f2f' }}>
-                                ${item.price}
+                                ₪
+                                {item.price}
                             </Typography>
                         </CardContent>
                         <Button
@@ -152,7 +155,8 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>סך כל המחיר</Typography>
-                        <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>${totalAmount.toFixed(2)}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: '600', color: '#333' }}>₪
+                            {totalAmount.toFixed(2)}</Typography>
                     </Box>
 
                     {!isPromoCodeVisible && (
@@ -197,12 +201,12 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                                     label="הכנס קוד"
                                     InputLabelProps={{
                                         style: {
-                                            textAlign: 'right', 
+                                            textAlign: 'right',
                                         },
                                     }}
                                     InputProps={{
                                         style: {
-                                            textAlign: 'right', 
+                                            textAlign: 'right',
                                         },
                                     }}
                                     dir="rtl"
@@ -230,12 +234,14 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>הנחה</Typography>
-                        <Typography variant="body1" sx={{ fontWeight: '600', color: '#388e3c' }}>-${discount.toFixed(2)}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: '600', color: '#388e3c' }}>-₪
+                            {discount.toFixed(2)}</Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, flexDirection: "row-reverse" }}>
                         <Typography variant="body1" sx={{ color: '#777' }}>סכום סופי</Typography>
-                        <Typography variant="h6" sx={{ fontWeight: '600', color: '#d32f2f' }}>${finalAmount.toFixed(2)}</Typography>
+                        <Typography variant="h6" sx={{ fontWeight: '600', color: '#d32f2f' }}>₪
+                            {finalAmount.toFixed(2)}</Typography>
                     </Box>
                 </Box>
             )}
@@ -256,7 +262,7 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                             borderRadius: 1,
                             textTransform: 'none',
                         }}
-                        onClick={() => navigate(ROUTES.CHECKOUT)}
+                        onClick={() => handlePaymentOnClick()}
                     >
                         להמשך לתשלום
                     </Button>
@@ -265,3 +271,4 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
         </Box>
     );
 }
+

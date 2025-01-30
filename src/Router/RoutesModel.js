@@ -10,6 +10,7 @@ export const ROUTES = {
     CONTACT_ME: "/contact",
     SINGLE_PRODUCT: "/single-product",
     CART: "/cart",
+    CHECKOUT: "/checkout",
     NOT_FOUND: "*"
 };
 

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import SingleProductDisplay from './SingleProductDisplay'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useCart } from '../../Cart/Provider/CartProvider'
 
 export default function SingleProductDisplayManager() {
     const { id } = useParams()
     const [isLoading, setIsLoading] = useState(true)
     const [singleProduct, setSingleProduct] = useState()
     const [imageSrc, setImageSrc] = useState()
+    const { addToCart } = useCart()
+    const navigate = useNavigate()
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -65,6 +68,6 @@ export default function SingleProductDisplayManager() {
     }
 
     return (
-        <SingleProductDisplay product={singleProduct} formatDescription={formatDescription} imageSrc={imageSrc} />
+        <SingleProductDisplay product={singleProduct} formatDescription={formatDescription} imageSrc={imageSrc} addToCart={addToCart} navigate={navigate}/>
     )
 }

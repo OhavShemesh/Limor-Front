@@ -9,7 +9,7 @@ import CheckoutForm from '../Payment/CheckoutForm'; // A component to handle the
 // Load the Stripe instance outside of a component’s render to avoid recreating the object on every render.
 const stripePromise = loadStripe('your-public-key-here'); // Replace with your Stripe public key
 
-export default function CartPage({ cart, removeFromCart, clearCart, imageSources, navigate, handlePaymentOnClick }) {
+export default function CartPage({ cart, removeFromCart, clearCart, imageSources, navigate, handlePaymentOnClick, setFinalAmount }) {
     const [promoCode, setPromoCode] = useState('');
     const [discount, setDiscount] = useState(0);
     const [isPromoCodeVisible, setIsPromoCodeVisible] = useState(false);
@@ -262,7 +262,7 @@ export default function CartPage({ cart, removeFromCart, clearCart, imageSources
                             borderRadius: 1,
                             textTransform: 'none',
                         }}
-                        onClick={() => handlePaymentOnClick()}
+                        onClick={() => handlePaymentOnClick(discount)}
                     >
                         להמשך לתשלום
                     </Button>

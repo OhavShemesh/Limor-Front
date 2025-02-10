@@ -1,7 +1,9 @@
-import { Box, CardMedia, Typography } from '@mui/material';
+import { AddShoppingCart, ShoppingCart } from '@mui/icons-material';
+import { Box, CardMedia, IconButton, Typography } from '@mui/material';
 import React from 'react';
+import ROUTES from '../../Router/RoutesModel';
 
-export default function SingleProductDisplay({ product, formatDescription, imageSrc }) {
+export default function SingleProductDisplay({ product, formatDescription, imageSrc, addToCart, navigate }) {
     return (
         <Box
             sx={{
@@ -18,8 +20,8 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     flex: 1,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'stretch', 
-                    minHeight: '500px', 
+                    alignItems: 'stretch',
+                    minHeight: '500px',
                 }}
             >
                 <CardMedia
@@ -27,9 +29,9 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     src={imageSrc}
                     alt={product.name}
                     sx={{
-                        width: '100%', 
-                        height: '100%', 
-                        objectFit: 'cover', 
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
                         borderRadius: '16px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                     }}
@@ -47,7 +49,7 @@ export default function SingleProductDisplay({ product, formatDescription, image
                     boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                     padding: 4,
                     alignItems: 'stretch',
-                    minHeight: '500px', 
+                    minHeight: '500px',
                 }}
             >
                 <Typography
@@ -146,8 +148,47 @@ export default function SingleProductDisplay({ product, formatDescription, image
                         >
                             {product.inStock > 0 ? `${product.inStock}` : 'אזל מהמלאי'}
                         </Typography>
+
                     </Box>
+
                 </Box>
+                <IconButton
+                    onClick={() => addToCart(product)}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        borderRadius: '12px',
+                        backgroundColor: '#f1f1f1',
+                        padding: '8px',
+                    }}
+                >
+                    <Typography sx={{ fontFamily: 'tahoma', color: 'black', fontSize: '0.9rem' }}>
+                        הוסף לעגלה
+                    </Typography>
+                    <AddShoppingCart sx={{ fontSize: '24px', color: 'black' }} />
+                </IconButton>
+                <IconButton
+                    onClick={() => navigate(ROUTES.CART)}
+                    sx={{
+                        position: 'fixed',
+                        bottom: 50,
+                        right: 20,
+                        backgroundColor: '#a29bfe',
+                        color: 'white',
+                        padding: '10px',
+                        borderRadius: '50%',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                        '&:hover': {
+                            backgroundColor: '#6c63ff',
+                            opacity: 1,
+                        },
+                    }}
+                >
+                    <ShoppingCart sx={{ fontSize: '30px' }} />
+                </IconButton>
+
+
             </Box>
         </Box>
     );

@@ -48,10 +48,14 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
       <Card
         sx={{
           borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
           display: 'flex',
           flexDirection: 'column',
-          height: '350px', 
+          height: '350px',
+          transition: 'box-shadow 0.3s ease-in-out',
+          '&:hover': {
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)',
+          },
         }}
       >
         <CardActionArea
@@ -61,7 +65,7 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
             flexDirection: rl % 2 === 0 ? 'row' : 'row-reverse',
             gap: 2,
             alignItems: 'stretch',
-            height: '100%', 
+            height: '100%',
           }}
         >
           <CardMedia
@@ -103,7 +107,7 @@ export default function ProductCard({ product, rl, navigate, addToCart }) {
               ₪ {product.price}
             </Typography>
             <Typography sx={{ direction: 'rtl', color: (product.inStock > 0 ? '#28a745' : '#d32f2f') }}>
-              {product.inStock > 0 ? `${product.inStock}` : 'אזל מהמלאי'}
+              {product.inStock > 0 ? `במלאי: ${product.inStock} יחידות` : 'אזל מהמלאי'}
             </Typography>
             <br />
           </CardContent>

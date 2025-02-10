@@ -41,15 +41,18 @@ export default function CartPageManager() {
 
         loadImages();
     }, []);
-    const handlePaymentOnClick = () => {
+    const handlePaymentOnClick = (discount) => {
         navigate(ROUTES.CHECKOUT)
         setFinalAmount(() => {
             let total = 0;
             for (const cartItem of cart) {
                 total += cartItem.price
-                console.log(total);
 
             }
+            if (discount) {
+                total = total - discount
+            }
+
             return total;
         });
 
@@ -61,6 +64,6 @@ export default function CartPageManager() {
     }
 
     return (
-        <CartPage cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} imageSources={imageSources} navigate={navigate} handlePaymentOnClick={handlePaymentOnClick} />
+        <CartPage cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} imageSources={imageSources} navigate={navigate} handlePaymentOnClick={handlePaymentOnClick} setFinalAmount={setFinalAmount} />
     )
 }
